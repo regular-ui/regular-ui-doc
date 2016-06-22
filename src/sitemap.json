@@ -1,0 +1,38 @@
+{
+    "name": "Index",
+    "children": [
+        {
+            "name": "Start",
+            "lowerName": "start",
+            "zhName": "开始使用",
+            "children": [
+                {"name": "QuickStart", "lowerName": "quickStart", "zhName": "快速开始", "hidden": true},
+                {"name": "Feature", "lowerName": "feature", "zhName": "特性", "hidden": true},
+                {"name": "ChangeLog", "lowerName": "changeLog", "zhName": "更新日志", "path": "https://github.com/regular-ui/regular-ui/releases", "hidden": true},
+                {"name": "Modular", "lowerName": "modular", "zhName": "模块化", "group": "开发者", "hidden": true},
+                {"name": "Structure", "lowerName": "structure", "zhName": "项目结构", "group": "开发者", "hidden": true},
+                {"name": "Rule", "lowerName": "rule", "zhName": "规范", "group": "开发者"}
+            ]
+        }, {
+            "name": "CSSUnit",
+            "lowerName": "cssUnit",
+            "zhName": "CSS元件",
+            "children": []
+        }, {
+            "name": "CSSModule",
+            "lowerName": "cssModule",
+            "zhName": "CSS模块",
+            "children": []
+        }, {
+            "name": "JSUnit",
+            "lowerName": "jsUnit",
+            "zhName": "JS元件",
+            "children": []
+        }, {
+            "name": "JSModule",
+            "lowerName": "jsModule",
+            "zhName": "JS模块",
+            "children": []
+        }
+    ]
+}

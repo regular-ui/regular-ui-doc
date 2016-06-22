@@ -1,0 +1,25 @@
+<div class="g-ft">
+    <footer class="m-footer">
+        <p><a href="<%= assetsPath %>index.html" class="footer_logo"><img src="<%= assetsPath %>img/logo-v2.0-bg-48.png" /></p>
+        <p>
+            <a href="https://github.com/regular-ui/regular-ui" target="_blank">GitHub</a> |
+            <a href="https://github.com/regular-ui/regular-ui/issues" target="_blank">Issues</a> |
+            <a href="https://github.com/regular-ui/regular-ui/releases" target="_blank">ChangeLog</a> |
+            <a href="https://github.com/regular-ui/regular-ui/blob/master/CONTRIBUTING.md" target="_blank">Contributing</a>
+        </p>
+        <p>Licensed under <a href="https://github.com/regular-ui/regular-ui/blob/master/LICENSE" target="_blank">MIT license</a>.</p>
+    </footer>
+</div>
+<script src="<%= assetsPath %>vendor/regular.min.js"></script>
+<script src="<%= assetsPath %>js/regular-ui.min.js"></script>
+<script>
+var $$ = function(selector){return document.querySelectorAll(selector)};
+$$('.m-article > h2, .m-article > h3').forEach(function($heading) {
+    $heading.innerHTML = '<a href="#' + $heading.id + '">' + $heading.innerText + '</a>';
+});
+</script>
+<script>
+<%- script %>
+</script>
+</body>
+</html>
