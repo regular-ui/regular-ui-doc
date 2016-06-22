@@ -1,6 +1,6 @@
 {
   "name": "regular-ui-doc",
-  "description": "Regular UI Documentation Builder for `regular-ui.github.io`.",
+  "description": "Regular UI Documentation Source",
   "version": "0.2.0",
   "author": "Rainfore <rainforest92@126.com>",
   "repository": "regular-ui/regular-ui-doc",

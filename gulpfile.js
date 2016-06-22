@@ -31,9 +31,9 @@ gulp.task('doc-build', (done) => {
         .pipe(gulp.dest('./doc'));
 });
 
-gulp.task('doc-watch', ['doc-build'], (done) => {
+gulp.task('doc-watch', ['doc-copy', 'doc-build'], (done) => {
     gulp.watch('src/assets/**', ['doc-copy']);
-    gulp.watch('src/**', ['doc-build']);
+    gulp.watch('src/content/**', ['doc-build']);
 });
 
 /**
@@ -43,21 +43,17 @@ gulp.task('doc-watch', ['doc-build'], (done) => {
  * ------------------------------------------------------------
  */
 
-/*gulp.task('page-clean', function() {
-    return gulp.src([
-        '../regular-ui.github.io/*',
-        '!../regular-ui.github.io/README.md'
-    ], {read: false}).pipe(rm({force: true}));
+gulp.task('page-clean', function() {
+    return gulp.src('../regular-ui.github.io/v0.2/*', {read: false}).pipe(rm({force: true}));
 });
 
 gulp.task('page-copy', function() {
-    return gulp.src('./doc/**').pipe(gulp.dest('../regular-ui.github.io'));
+    return gulp.src('./doc/**').pipe(gulp.dest('../regular-ui.github.io/v0.2'));
 });
 
 gulp.task('page', function(done) {
     sequence(['doc', 'page-clean'], ['page-copy'], done);
 });
-*/
 
 gulp.task('doc', (done) => {
     sequence('doc-clean', 'doc-copy', ['doc-build'], done);

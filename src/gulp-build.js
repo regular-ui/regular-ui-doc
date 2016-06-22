@@ -29,7 +29,6 @@ module.exports = function(options) {
             throw new PluginError('gulp-build', 'Streaming not supported');
 
         let sitepath = file.path.replace(/^.*regular-ui-doc\/src\/content\/(.*)\.md/, '$1');
-        console.log(sitepath);
         let levels = sitepath.split('/');
 
         let jsonpath = path.join(file.path, '../../index.json');
@@ -42,7 +41,6 @@ module.exports = function(options) {
             mainnav: levels[0],
             sidenav: levels[1],
 
-            // assetsPath: 'http://regular-ui.github.io/',
             name: '',
             zhName: '',
             content: '',
@@ -51,15 +49,15 @@ module.exports = function(options) {
         };
 
         // 组织主导航数据
-        sitemap.children.forEach(function(level1) {
-            level1.path = level1.children[0] ? (level1.lowerName + '/' + level1.children[0].lowerName + '.html').toLowerCase() : '#';
-            // level1.path = level1.path || (level1.lowerName + '/index.html').toLowerCase();
-            data.mainnavs.push(level1);
+        sitemap.children.forEach(function(item) {
+            item.path = item.children[0] ? (item.lowerName + '/' + item.children[0].lowerName + '.html').toLowerCase() : '#';
+            // item.path = item.path || (item.lowerName + '/index.html').toLowerCase();
+            data.mainnavs.push(item);
         });
 
         // 组织侧边栏数据
         for(var i = 0; i < sitemap.children.length; i++)
-            if(sitemap.children[i].lowerName === levels[0]) {
+            if(sitemap.children[i].lowerName.toLowerCase() === levels[0]) {
                 data.sidenavs = sitemap.children[i].children;
                 data.sidenavs.forEach(function(item) {
                     if(item.lowerName === levels[1]) {

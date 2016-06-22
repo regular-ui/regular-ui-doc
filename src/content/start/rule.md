@@ -5,20 +5,21 @@
 
 ### 命名规范
 
+组件名、类名、对象名、标签名、CSS类名、JS文件名和CSS文件名必须保持一致性。
+
 | 组件名和类名       | 对象名             | 标签名               | CSS class             |　JS文件名             |  CSS文件名              |
 | ------------------ | ------------------ | -------------------- | --------------------- | --------------------- | ----------------------- |
-| 大驼峰             | 小驼峰             | 小驼峰               | 全小写                | 与标签名一致          | 与标签名一致            |
+| 大驼峰             | 小驼峰             | 小驼峰               | 小驼峰                | 小驼峰                | 小驼峰                  |
 | -                  | -                  | `<button>`            | `u-btn`                | -                     | `btn.mcss`               |
 | `Modal`             | `modal`             | `<modal>`             | `m-modal`              | `modal.js`             | `modal.mcss`             |
-| `DetailModal`       | `detailModal`       | `<detailModal>`       | `m-detailmodal`        | `detailModal.js`       | `detailModal.mcss`       |
-| `ListView`          | `listView`          | `<listView>`          | `m-listview`           | `listView.js`          | `listView.mcss`          |
-| `MusicListView`     | `musicListView`     | `<musicListView>`     | `m-musiclistview`      | `musicListView.js`     | `musicListView.mcss`     |
-| `TreeView`          | `treeView`          | `<treeView>`          | `m-treeview`           | `treeView.js`          | `treeView.mcss`          |
-| `KnowledgeTreeView` | `knowledgeTreeView` | `<knowledgeTreeView>` | `m-knowledgetreeview`  | `knowledgeTreeView.js` | `knowledgeTreeView.mcss` |
-| `TreeViewList`      | `treeViewList`      | `<treeViewList>`      | `treeview_list`        | -                     | -                       |
+| `DetailModal`       | `detailModal`       | `<detailModal>`       | `m-detailModal`        | `detailModal.js`       | `detailModal.mcss`       |
+| `ListView`          | `listView`          | `<listView>`          | `m-listView`           | `listView.js`          | `listView.mcss`          |
+| `MusicListView`     | `musicListView`     | `<musicListView>`     | `m-musicListView`      | `musicListView.js`     | `musicListView.mcss`     |
+| `TreeView`          | `treeView`          | `<treeView>`          | `m-treeView`           | `treeView.js`          | `treeView.mcss`          |
+| `KnowledgeTreeView` | `knowledgeTreeView` | `<knowledgeTreeView>` | `m-knowledgeTreeView`  | `knowledgeTreeView.js` | `knowledgeTreeView.mcss` |
 | `Calendar`          | `calendar`          | `<calendar>`          | `m-calendar`           | `calendar.js`          | `calendar.mcss`          |
-| `DatePicker`        | `datePicker`        | `<datePicker>`        | `u-datepicker`         | `datePicker.js`        | `datePicker.mcss`        |
-| `DateTimePicker`    | `dateTimePicker`    | `<dateTimePicker>`    | `u-datetimepicker`     | `dateTimePicker.js`    | `dateTimePicker.mcss`    |
+| `DatePicker`        | `datePicker`        | `<datePicker>`        | `u-datePicker`         | `datePicker.js`        | `datePicker.mcss`        |
+| `DateTimePicker`    | `dateTimePicker`    | `<dateTimePicker>`    | `u-dateTimePicker`     | `dateTimePicker.js`    | `dateTimePicker.mcss`    |
 
 ### CSS规范
 
@@ -56,9 +57,9 @@ Regular UI中所有组件的CSS样式都遵循[NEC规范][NEC]。
 
 ### JS规范
 
-Regular UI中所有组件的JS代码都遵循Google的JavaScript规范。
-
-代码的注释遵循jsDoc的规范。
+- JS代码都遵循[Google的JavaScript规范](https://google.github.io/styleguide/javascriptguide.xml)（[中文版](http://alloyteam.github.io/JX/doc/specification/google-javascript.xml)）。
+- ES6代码遵循[阮一峰《ECMAScript 6入门》中的编程风格](http://es6.ruanyifeng.com/#docs/style)。
+- 代码的注释遵循[jsDoc的规范](http://usejsdoc.org)。
 
 #### 补充
 
@@ -68,32 +69,35 @@ Regular UI中所有组件的JS代码都遵循Google的JavaScript规范。
 
 #### 组件声明
 
-- 每个组件必须在`config`中声明默认数据。
+- 每个组件必须在`config`中使用`Object.assign`显式声明默认数据。
 - 使用`this.data`，放弃使用Regular中`config`或`init`中传入的`data`参数。
 - 数据操作放在`config`中处理，DOM操作放在`init`中处理，并且尽量不进行DOM操作。
 
 最佳实践：
 
 ```javascript
-var Modal = Component.extend({
+let Modal = Component.extend({
     name: 'modal',
     template: template,
-    /* @protected */
-    config: function() {
-        _.extend(this.data, {
+    /**
+     * @protected
+     * @override
+     */
+    config() {
+        this.data = Object.assign({
             title: '提示',
             content: '',
             okButton: true,
             cancelButton: false,
             draggable: false
-        });
+        }, this.data);
         this.supr();
     },
     ...
     /* @public */
-    ok: function() {...},
+    ok() {...},
     /* @private */
-    _onDragStart: function() {...},
+    _onDragStart() {...},
     ...
 });
 ```
@@ -113,20 +117,18 @@ var Modal = Component.extend({
 - 与组件整体相关的事件，以**动作或状态**的形式命名，如`change`, `dragend`, ...
 - 与组件局部相关的事件，以**对象**+**动作或状态**的形式命名，如：`itemselect`, `itemmouseup`, ...
 - 与事件对应的处理方法采用小驼峰，并且加`_on`，如：`_onDragEnd`, `_onItemSelect`, `_onItemMouseUp`, ...
-- 如果使用事件参数，事件参数必须为一个object对象，并且遵循以下形式：
+- 事件参数必须为一个object对象，并且遵循以下形式：
 
 ```javascript
 {
     sender: this,    // 触发事件的发送对象，通常为this
-    target: target,    // 事件处理的目标元素
-    origin: ...,    // 触发事件的起始源，可选，如与drop事件相关的draggable
     ...    // 其他相关参数
 }
 ```
 
 #### 模板
 
-- 模板尽量采用HTML5风格，除了`< />`
+- 模板尽量采用HTML5风格，除了严格执行`< />`
     - 字符串加双引号
     - bool属性不加`{true}`或`{false}`
     - 数字属性不加双引号
@@ -148,9 +150,6 @@ var Modal = Component.extend({
 
 - `button` => `btn`
 - `image` => `img`
-- `formControl` => `formCtrl`
-- `breadCrumb` => `crumb`
-- `markdownEditor` => `markEditor`
 
 #### class
 
