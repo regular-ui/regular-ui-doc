@@ -59,4 +59,5 @@ gulp.task('doc', (done) => {
     sequence('doc-clean', 'doc-copy', ['doc-build'], done);
 });
 
+gulp.task('watch', ['doc-watch']);
 gulp.task('default', ['doc-watch']);
