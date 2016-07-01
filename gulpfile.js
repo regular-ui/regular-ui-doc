@@ -21,6 +21,7 @@ gulp.task('doc-copy', (done) => {
     return all(
         gulp.src('./src/assets/**').pipe(gulp.dest('./doc')),
         gulp.src('./node_modules/font-awesome/fonts/**').pipe(gulp.dest('./doc/fonts')),
+        gulp.src(['./node_modules/babel-polyfill/dist/polyfill.min.js']).pipe(gulp.dest('./doc/vendor')),
         gulp.src(['./node_modules/regularjs/dist/regular.min.js']).pipe(gulp.dest('./doc/vendor'))
     );
 });

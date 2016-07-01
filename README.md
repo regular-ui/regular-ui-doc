@@ -2,7 +2,7 @@
 
 [Regular UI Website](http://regular-ui.github.io) is built by this repo.
 
-## Develop
+## Commands
 
 - `gulp`：监听md文件，实时更新文档。
 - `gulp watch`：同上

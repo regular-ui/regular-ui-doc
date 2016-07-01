@@ -11,13 +11,9 @@
     </footer>
 </div>
 <script src="<%= assetsPath %>vendor/regular.min.js"></script>
+<script src="<%= assetsPath %>vendor/polyfill.min.js"></script>
 <script src="<%= assetsPath %>js/regular-ui.min.js"></script>
-<script>
-var $$ = function(selector){return document.querySelectorAll(selector)};
-$$('.m-article > h2, .m-article > h3').forEach(function($heading) {
-    $heading.innerHTML = '<a href="#' + $heading.id + '">' + $heading.innerText + '</a>';
-});
-</script>
+<script src="<%= assetsPath %>js/helper.js"></script>
 <script>
 <%- script %>
 </script>
