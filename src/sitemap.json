@@ -11,7 +11,8 @@
                 {"name": "ChangeLog", "lowerName": "changeLog", "zhName": "更新日志", "path": "https://github.com/regular-ui/regular-ui/releases", "hidden": true},
                 {"name": "Modular", "lowerName": "modular", "zhName": "模块化", "group": "开发者", "hidden": true},
                 {"name": "Structure", "lowerName": "structure", "zhName": "项目结构", "group": "开发者", "hidden": true},
-                {"name": "Rule", "lowerName": "rule", "zhName": "规范", "group": "开发者"}
+                {"name": "Rule", "lowerName": "rule", "zhName": "规范", "group": "开发者"},
+                {"name": "Overview", "lowerName": "overview", "zhName": "概览", "group": "开发者"}
             ]
         }, {
             "name": "CSSUnit",

@@ -27,7 +27,7 @@ gulp.task('doc-copy', (done) => {
 });
 
 gulp.task('doc-build', (done) => {
-    return gulp.src('./src/content/**/*.md')
+    return gulp.src('./src/content/**/*')
         .pipe(build())
         .pipe(gulp.dest('./doc'));
 });

@@ -1,0 +1,38 @@
+<h3>仓库信息</h3>
+
+<% var list = [
+    {repo: 'ui-base', main: 'base'},
+    {repo: 'ui-calendar', main: 'calendar'},
+    {repo: 'ui-drag', main: 'drag'},
+    {repo: 'ui-listview', main: 'listView'},
+    {repo: 'ui-modal', main: 'modal'},
+    {repo: 'ui-overlay', main: 'overlay'},
+    {repo: 'ui-resizable', main: 'resizable'},
+    {repo: 'ui-sample', main: 'sample'},
+    {repo: 'ui-select', main: 'selectField'},
+]; %>
+
+<table style="white-space: nowrap; margin-left: -40px;">
+    <thead><tr>
+        <th>Repo</th>
+        <th>Stars</th>
+        <th>Forks</th>
+        <th>NPM Version</th>
+        <th>Build Status</th>
+        <th>Test Coverage</th>
+        <th>Dependencies</th>
+        <th>NPM Download</th>
+    </tr></thead>
+    <tbody>
+        <% list.forEach((item) => { %><tr>
+            <td><a href="https://github.com/regular-ui/<%= item.repo %>" target="_blank"><%= item.repo %></a></td>
+            <td><div><a href="https://github.com/regular-ui/<%= item.repo %>/stargazers" target="_blank"><img src="https://img.shields.io/github/stars/regular-ui/<%= item.repo %>.svg?style=social&label=Star" /></a></div>
+            <td><div><a href="https://github.com/regular-ui/<%= item.repo %>/network/members" target="_blank"><img src="https://img.shields.io/github/forks/regular-ui/<%= item.repo %>.svg?style=social&label=Fork" /></a></div>
+            <td><div><a href="http://npmjs.org/package/rg<%= item.repo %>" target="_blank"><img src="http://img.shields.io/npm/v/rg<%= item.repo %>.svg?style=flat-square" /></a></div></td>
+            <td><div><a href="https://travis-ci.org/regular-ui/<%= item.repo %>" target="_blank"><img src="https://img.shields.io/travis/regular-ui/<%= item.repo %>.svg?style=flat-square" /></a></div></td>
+            <td><div><a href="https://coveralls.io/r/regular-ui/<%= item.repo %>" target="_blank"><img src="https://img.shields.io/coveralls/regular-ui/<%= item.repo %>/next.svg?style=flat-square" /></a></div></td>
+            <td><div><a href="https://david-dm.org/regular-ui/<%= item.repo %>" target="_blank"><img src="http://img.shields.io/david/regular-ui/<%= item.repo %>.svg?style=flat-square" /></a></div></td>
+            <td><div><a href="https://npmjs.org/package/rg<%= item.repo %>" target="_blank"><img src="https://img.shields.io/npm/dm/rg<%= item.repo %>.svg?style=flat-square" /></a></div></td>
+        </tr><% }); %>
+    </tbody>
+</table>

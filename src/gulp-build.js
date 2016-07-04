@@ -21,14 +21,13 @@ module.exports = function(options) {
     options = options || {verbose: true};
 
     return through2.obj(function(file, enc, cb) {
-        // 目前只为*.md的生成页面
-
         if (file.isNull())
             return cb(null, file);
         else if(file.isStream())
             throw new PluginError('gulp-build', 'Streaming not supported');
 
-        let sitepath = file.path.replace(/^.*regular-ui-doc\/src\/content\/(.*)\.md/, '$1');
+        let sitepath = file.path.replace(/^.*regular-ui-doc\/src\/content\/(.*)\.\w+/, '$1');
+        let extname = path.extname(file.path);
         let levels = sitepath.split('/');
 
         let jsonpath = path.join(file.path, '../../index.json');
@@ -75,23 +74,27 @@ module.exports = function(options) {
         //     data = Object.assign(data, JSON.parse(fs.readFileSync(jsonpath, 'utf-8')));
 
         data.content = file.contents.toString();
+
+        if(extname === '.md') {
+            // 对markdown中的示例进行预处理
+            let result = premark.premark(data.content);
+            // try {
+            //     data.script = babel.transform(result.script, babelConfig).code;
+            // } catch(e) {
+            //     data.script = result.script;
+            //     console.error('Babel transform error:', e, file.path);
+            // }
+            data.content = markdown(result.content);
+
+            // 如果当前文件为index.md，并且组件有js代码，则生成api
+            // let jspath = path.join(file.path, '../../index.js');
+            // if(file.path.endsWith('/index.md') && fs.existsSync(jspath))
+            //     data.api = jsAPI.render(jspath, templates['js-api']);
+        } else if(extname === '.ejs') {
+            data.content = ejs.render(data.content);
+        }
+
         let tpl = templates.head + '<div class="g-bd"><div class="g-bdc">' + templates.sidebar + templates.main + '</div></div>' + templates.foot;
-
-        // 对markdown中的示例进行预处理
-        let result = premark.premark(data.content);
-        // try {
-        //     data.script = babel.transform(result.script, babelConfig).code;
-        // } catch(e) {
-        //     data.script = result.script;
-        //     console.error('Babel transform error:', e, file.path);
-        // }
-        data.content = markdown(result.content);
-
-        // 如果当前文件为index.md，并且组件有js代码，则生成api
-        // let jspath = path.join(file.path, '../../index.js');
-        // if(file.path.endsWith('/index.md') && fs.existsSync(jspath))
-        //     data.api = jsAPI.render(jspath, templates['js-api']);
-
         let html;
         try {
             html = ejs.render(tpl, data);
@@ -102,7 +105,7 @@ module.exports = function(options) {
 
         // 变更路径，修改file
         file.base = file.cwd;
-        file.path = file.path.replace(/src\/content\/(.+)\.md$/, '$1.html');
+        file.path = file.path.replace(/src\/content\/(.+)\.\w+$/, '$1.html');
         file.contents = new Buffer(html);
 
         options.verbose && console.log('[' + chalk.grey(new Date().toLocaleTimeString()) + ']', chalk.blue('Building'), 'doc/' + path.relative(file.base, file.path));

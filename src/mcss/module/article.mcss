@@ -147,4 +147,7 @@
         font-size: 12px;
     }
 
+    >table img {
+        max-width:none;
+    }
 }

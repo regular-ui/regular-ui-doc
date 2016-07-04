@@ -81,9 +81,7 @@ $g-mn_padding = 60px;
 }
 
 .g-mn-center {
-    float: none;
-    overflow: hidden;
-    margin: 0 auto;
+    margin-right: 140px;
 }
 
 .g-sd > .m-sidebar {
