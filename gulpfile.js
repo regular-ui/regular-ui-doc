@@ -1,11 +1,11 @@
 'use strict';
 
-let gulp = require('gulp');
-let rm = require('gulp-rimraf');
-let all = require('gulp-all');
-let sequence = require('run-sequence');
+const gulp = require('gulp');
+const rm = require('gulp-rimraf');
+const all = require('gulp-all');
+const sequence = require('run-sequence');
 
-let build = require('./src/gulp-build.js');
+const build = require('./src/gulp-build.js');
 
 /**
  * ------------------------------------------------------------

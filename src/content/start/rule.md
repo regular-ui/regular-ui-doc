@@ -69,7 +69,7 @@ Regular UI中所有组件的CSS样式都遵循[NEC规范][NEC]。
 
 #### 组件声明
 
-- 每个组件必须在`config`中使用`Object.assign`显式声明默认数据。
+- 每个组件必须在`config`中使用`this.defaults`显式声明默认数据。
 - 使用`this.data`，放弃使用Regular中`config`或`init`中传入的`data`参数。
 - 数据操作放在`config`中处理，DOM操作放在`init`中处理，并且尽量不进行DOM操作。
 
@@ -84,13 +84,13 @@ let Modal = Component.extend({
      * @override
      */
     config() {
-        this.data = Object.assign({
+        this.defaults({
             title: '提示',
             content: '',
             okButton: true,
             cancelButton: false,
             draggable: false
-        }, this.data);
+        });
         this.supr();
     },
     ...
